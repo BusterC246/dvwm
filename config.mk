@@ -27,8 +27,9 @@ LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS}
 # flags
 CPPFLAGS = -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_C_SOURCE=200809L -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
 #CFLAGS   = -g -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
-CFLAGS   = -std=c99 -pedantic -Wall -Wno-deprecated-declarations -Ofast -march=native -pipe -flto ${INCS} ${CPPFLAGS}
+CFLAGS   = -std=c99 -pedantic -Wall -Wno-deprecated-declarations -Ofast -march=native -pipe -flto=auto -fgraphite-identity -floop-nest-optimize -fstack-protector-strong --param=ssp-buffer-size=4 -fno-plt -fopenmp -pthread ${INCS} ${CPPFLAGS}
 LDFLAGS  = ${LIBS}
+MAKEFLAGS="-j$(nproc) --quiet"
 
 # Solaris
 #CFLAGS = -fast ${INCS} -DVERSION=\"${VERSION}\"
